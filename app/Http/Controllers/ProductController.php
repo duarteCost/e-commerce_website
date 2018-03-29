@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Product_image;
+use DB;
 
 class ProductController extends Controller
 {
@@ -44,15 +46,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('product_details');
     }
 
     public function all()
     {
         $products = Product::all();
-        return view('product', ['products' => $products]);
+        $products_images = Product_image::all();
+
+        return view('product', ['products' => $products, 'products_images'=>$products_images]);
     }
 
     /**
@@ -61,9 +65,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+
     }
 
     /**

@@ -15,7 +15,7 @@ class CreateProductImagesTable extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('title');
             $table->string('path');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('no action')->onUpdate('no action');
@@ -23,30 +23,94 @@ class CreateProductImagesTable extends Migration
         });
         DB::table('product_images')->insert(
             array(
-                'name' => '41KW+CE1daL.jpg',
-                'path' => 'public/images/',
-                'product_id'=> '1'
-            )
-        );
-        DB::table('product_images')->insert(
-            array(
-                'name' => '61qaMh0rSIL._SL1000_.jpg',
-                'path' => 'public/images/',
-                'product_id'=> '1'
-            )
-        );
-        DB::table('product_images')->insert(
-            array(
-                'name' => '51JezJ432jL._SL1000_.jpg',
-                'path' => 'public/images/',
+                'title' => '41KWCE1daL.jpg',
+                'path' => 'images/',
                 'product_id'=> '2'
             )
         );
         DB::table('product_images')->insert(
             array(
-                'name' => '71FdJfTikFL._SL1000_.jpg',
-                'path' => 'public/images/',
+                'title' => '51Xo88YE2gL._SL1000_.jpg',
+                'path' => 'images/',
                 'product_id'=> '2'
+            )
+        );
+        DB::table('product_images')->insert(
+            array(
+                'title' => '61qaMh0rSIL._SL1000_.jpg',
+                'path' => 'images/',
+                'product_id'=> '1'
+            )
+        );
+        DB::table('product_images')->insert(
+            array(
+                'title' => '61ikAJnULvL._SL1000_.jpg',
+                'path' => 'images/',
+                'product_id'=> '1'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '512LVtU86dL.jpg',
+                'path' => 'images/',
+                'product_id'=> '3'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '81lWbJN4qUL._SL1500_.jpg',
+                'path' => 'images/',
+                'product_id'=> '3'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '718NVofDrCL._SL1500_.jpg',
+                'path' => 'images/',
+                'product_id'=> '4'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '81YqefIFZDL._SL1500_.jpg',
+                'path' => 'images/',
+                'product_id'=> '4'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '41NUc0XCTuL._SL1001_.jpg',
+                'path' => 'images/',
+                'product_id'=> '5'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '518xPbs7mBL._SL1000_.jpg',
+                'path' => 'images/',
+                'product_id'=> '5'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '711hEr3abeL._SL1000_.jpg',
+                'path' => 'images/',
+                'product_id'=> '6'
+            )
+        );
+
+        DB::table('product_images')->insert(
+            array(
+                'title' => '711hEr3abeL._SL1000_.jpg',
+                'path' => 'images/',
+                'product_id'=> '6'
             )
         );
     }

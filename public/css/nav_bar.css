@@ -1,0 +1,15 @@
+
+body {
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 70px;
+    width: 84%;
+    background-color: #111;
+    text-align: center;
+}
+
+.footer_container{
+}
