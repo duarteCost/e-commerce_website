@@ -5,7 +5,7 @@
 @endsection
 @section('content')
     <div class = "content">
-            <h1>Produtos</h1>
+            <h1>Products</h1>
             @foreach($products as $product)
                 @foreach($products_images as $product_image)
                     @if($product->id == $product_image->product_id)

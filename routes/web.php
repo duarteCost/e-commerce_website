@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::get('/products', 'ProductController@all');
 Route::get('/product/{product}', 'ProductController@show');
+Route::get('/cart', 'CartController@cart_products');

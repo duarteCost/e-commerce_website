@@ -48,14 +48,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product_details');
+        $product_images = DB::table('product_images')->where('product_id', $product->id)->get();
+        return view('product_details', ['product'=>$product, 'product_images'=>$product_images]);
+
     }
 
     public function all()
     {
         $products = Product::all();
         $products_images = Product_image::all();
-
         return view('product', ['products' => $products, 'products_images'=>$products_images]);
     }
 
