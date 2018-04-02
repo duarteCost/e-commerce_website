@@ -8,6 +8,11 @@ h1{
     text-align: center;
 }
 
+.product_text{
+    width: 50%;
+    float: left;
+}
+
 .product img {
     max-width:250px;
     max-height:175px;

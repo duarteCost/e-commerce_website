@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    $('.product_form').click(function (e) {
+    $('.add_cart').click(function (e) {
         var product_id = $('.product_id').val();
         var products = getCookie('products');
         if (products === ""){
@@ -34,6 +34,11 @@ $( document ).ready(function() {
             }
         }
 
+    })
+    $('#go_cart').click(function (e) {
+
+        e.preventDefault()
+        window.location = "/cart?cart_products="+getCookie('products');
     })
 
 });

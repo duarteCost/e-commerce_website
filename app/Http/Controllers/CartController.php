@@ -12,14 +12,20 @@ class CartController extends Controller
         $cart_products = $request->cart_products;
         $cart_products_quantities = json_decode($cart_products);
         $products_id_array = [];
-        foreach ($cart_products_quantities as $product){
-            array_push($products_id_array, $product->product_id);
+        if($cart_products != "") {
+            foreach ($cart_products_quantities as $product) {
+                array_push($products_id_array, $product->product_id);
+            }
+            $products = DB::table('products')
+                ->whereIn('id', $products_id_array)->get();
+            $products_images = DB::table('product_images')
+                ->whereIn('product_id', $products_id_array)->get();
+            return view('cart', ['cart_products' => $products, 'cart_products_quantities' => $cart_products_quantities,
+                'products_images' => $products_images, 'cart_state'=>"with products" ]);
         }
-        $products= DB::table('products')
-            ->whereIn('id', $products_id_array)->get();
-        $products_images = DB::table('product_images')
-            ->whereIn('product_id', $products_id_array)->get();
-        return view('cart', ['cart_products' => $products, 'cart_products_quantities'=>$cart_products_quantities,
-            'products_images'=>$products_images]);
+        else
+        {
+            return view('cart', ['cart_state'=>"empty"]);
+        }
     }
 }

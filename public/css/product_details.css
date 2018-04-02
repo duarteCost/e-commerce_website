@@ -10,14 +10,27 @@
     height: auto;
     border: 1px solid #9BA2AB;
     margin-top: 4%;
+    margin-left: 2%;
 }
 
 .product_img img{
-    max-width:750px;
-    max-height:525px;
+    max-width:80%;
+    max-height:60%;
     width: auto;
     height: auto;
-    padding-right: 3%;
+}
+.product_details{
+    width: 30%;
+    float: left;
+}
+
+.left_side{
+    width: 70%;
+    float: left;
+}
+
+.buttuns{
+    float: left;
 }
 
 .content{

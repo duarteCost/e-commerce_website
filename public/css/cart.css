@@ -1,0 +1,55 @@
+.product_header p{
+    font-size: 18px;
+}
+hr{
+    width: 100%; !important;
+}
+.content{
+    margin:5% 5% 5% 5%;
+}
+.product{
+    width: 100%;
+    height: auto;
+}
+
+.product_image {
+    width: 30%;
+    margin-left: 3%;
+
+}
+.product_image p{
+    float: left;
+    width: 175px;
+}
+
+.product_image img{
+    float: left;
+    max-width:260px;
+    max-height: 175px;
+    width: auto;
+    height: auto;
+}
+
+.product_text{
+    width: 35%;
+    float: left;
+    margin-left: 2%;
+}
+
+.product_price{
+    width: 10%;
+    float: left;
+    margin-left: 2%;
+}
+.product_quantitaty{
+    width: 10%;
+    float: left;
+    margin-left: 2%;
+}
+.product_button{
+    margin-top: 40px;
+    width: 10%;
+    float: left;
+    margin-left: 2%;
+
+}

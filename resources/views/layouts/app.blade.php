@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../css/nav_bar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/cart.js"></script>
     <style type="text/css">
         .navbar{
             margin-top: 20px;
@@ -34,19 +36,12 @@
                 <li class="active"><a href="/products">Products</a></li>
                 <li><a href="#">Gift Cards</a></li>
                 <li><a href="#">Today's deals</a></li>
-                <li class=divider-vertical"></li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                </div>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Login</a></li>
-                <li><a href="#"><img style="width: 10%; float:right" src="http://www.hortongroup.com/hs-fs/hubfs/Services%20Rework/icons/websites%20and%20custom/ecommerce%20icon.png?t=1521730738518&width=348&height=297&name=ecommerce%20icon.png"></a></li>
+            <ul style="float:right; width: 10%"  class="nav navbar-nav navbar-right">
+                <li><a id = "go_cart" class="btn-lg " href="#"><img style="width: 25px" src="http://www.hortongroup.com/hs-fs/hubfs/Services%20Rework/icons/websites%20and%20custom/ecommerce%20icon.png?t=1521730738518&width=348&height=297&name=ecommerce%20icon.png"></a></li>
+            </ul>
+            <ul style="float:right; width: 10%"  class="nav navbar-nav">
+                <li style="width: 10%;"><a href="#">Login</a></li>
             </ul>
         </div>
     </nav>

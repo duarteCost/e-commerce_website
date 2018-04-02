@@ -15,10 +15,9 @@
                             </div>
                             <div class="product_text">
                                 <p><b>{{$product->name}}</b></p>
-                                <hr>
                                 <p> {{str_limit($product->description,50)}}<a href="/product/{{$product->id}}">Learn more</a></p>
                                 {{--<p class="availability">{{$product->availability}}</p>--}}
-                                <p class="price"><b>${{$product->price}}</b></p>
+                                <p class="price"><b>€{{$product->price}}</b></p>
 
                             </div>
 

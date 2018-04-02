@@ -1,26 +1,4 @@
 
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
 //Get default payment accont
 function get_default_payment_account(token) {
     return $.ajax({
@@ -142,7 +120,10 @@ function purchase(token) {
                                         {
                                             alert("Some error occurred.")
                                         }
-                                    })
+                                    }).fail(function (data) {
+                                        alert(data.responseJSON.response);
+                                        console.log(data);
+                                    });
                                 }
                                 else
                                 {
@@ -155,23 +136,35 @@ function purchase(token) {
                             else if(data.response.status === "COMPLETED") {
                                 alert("Purchase made successfully!")
                             }
-                        })
+                        }).fail(function (data) {
+                            alert(data.responseJSON.response);
+                            console.log(data);
+                        });
                     }
                     else
                     {
                         alert("Purchase was canceled.");
                     }
 
-                })
+                }).fail(function (data) {
+                    alert(data.responseJSON.response);
+                    console.log(data);
+                });
             }
             else
             {
                 alert("No account has enough money to purchase in any account.");
             }
 
+        }).fail(function (data) {
+            alert(data.responseJSON.response);
+            console.log(data);
         });
 
-    })
+    }).fail(function (data) {
+        alert(data.responseJSON.response);
+        console.log(data);
+    });
 
 }
 
@@ -216,8 +209,8 @@ $( document ).ready(function() {
                 var continue_operation = confirm("Login successfully. Do you want to proceed with payment?");
                 if(continue_operation)
                 {
-                    purchase(data.response.token); //Success operation, proceed with the payment
-                    console.log(data.response.token)
+                    purchase(data.token); //Success operation, proceed with the payment
+                    console.log(data.token)
                 }
                 else
                 {
@@ -226,7 +219,7 @@ $( document ).ready(function() {
 
             },
             error: function (data) {
-                $('#error-message').html('O email e/ou password introduzidos estão incorrectos.');
+                $('#error-message').html(data.responseJSON.response);
                 console.log('An error occurred.');
                 console.log(data);
             }

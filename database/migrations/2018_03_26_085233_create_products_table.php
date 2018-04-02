@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
 Ships from and sold by Amazon Digital Services LLC. Gift-wrap available.',
                 'availability'=>'In Stock',
                 'price' => 49.99,
-                'currency' => 'USD',
+                'currency' => 'EUR',
             )
         );
         DB::table('products')->insert(
@@ -38,7 +38,7 @@ Ships from and sold by Amazon Digital Services LLC. Gift-wrap available.',
                 'description' => 'This item does not ship to Portugal. Please check other sellers who may ship internationally.',
                 'availability'=>'In Stock',
                 'price' => 119.99,
-                'currency' => 'USD',
+                'currency' => 'EUR',
             )
         );
 
@@ -49,7 +49,7 @@ Ships from and sold by Amazon Digital Services LLC. Gift-wrap available.',
 Sold by SASRL and Fulfilled by Amazon. Gift-wrap available.',
                 'availability'=>'In Stock',
                 'price' => 	99.99,
-                'currency' => 'USD',
+                'currency' => 'EUR',
             )
         );
 
@@ -60,7 +60,7 @@ Sold by SASRL and Fulfilled by Amazon. Gift-wrap available.',
 Ships from and sold by Amazon.com.',
                 'availability'=>'In Stock',
                 'price' => 	24.95,
-                'currency' => 'USD',
+                'currency' => 'EUR',
             )
         );
 
@@ -71,7 +71,7 @@ Ships from and sold by Amazon.com.',
 Sold by NASAIBO and Fulfilled by Amazon. Gift-wrap available.',
                 'availability'=>'In Stock',
                 'price' => 	25.98,
-                'currency' => 'USD',
+                'currency' => 'EUR',
             )
         );
 
@@ -82,7 +82,7 @@ Sold by NASAIBO and Fulfilled by Amazon. Gift-wrap available.',
 Ships from and sold by Audio Dreams.',
                 'availability'=>'',
                 'price' => 	180.99,
-                'currency' => 'USD',
+                'currency' => 'EUR',
             )
         );
     }
