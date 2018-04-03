@@ -1,8 +1,12 @@
 .product_header p{
     font-size: 18px;
 }
-hr{
+
+.hr{
     width: 100%; !important;
+    height: 1px;
+    background-color: #1d2124;
+    opacity: 0.5;
 }
 .content{
     margin:5% 5% 5% 5%;
@@ -46,10 +50,19 @@ hr{
     float: left;
     margin-left: 2%;
 }
-.product_button{
+.product_form{
     margin-top: 40px;
     width: 10%;
     float: left;
     margin-left: 2%;
 
+}
+
+.buy_all{
+    width: 100%;
+    text-align: center;
+}
+
+#total_value{
+    color: #721c24;
 }

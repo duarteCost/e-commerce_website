@@ -41,4 +41,16 @@ $( document ).ready(function() {
         window.location = "/cart?cart_products="+getCookie('products');
     })
 
+
+    var total = 0;
+    $(".product_form").each(function(){
+        console.log($(this))
+        var amount = $('.amount', this).val()
+        console.log(amount)
+        var quantity = $('.quantity', this).val()
+        total = total + amount * quantity;
+        console.log(total)
+    });
+    $('#total_value').html(total.toFixed(2));
+
 });

@@ -1,4 +1,4 @@
-.buyNow {
+.my_button {
     display: inline-block;
     border-radius: 5px;
     background-image:url('../images/nearsoftLogo.png');
@@ -13,14 +13,14 @@
     cursor: pointer;
 }
 
-.buyNow span {
+.my_button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
 
-.buyNow span:after {
+.my_button span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -29,11 +29,11 @@
     transition: 0.5s;
 }
 
-.buyNow:hover span {
+.my_button:hover span {
     padding-right: 20px;
 }
 
-.buyNow:hover span:after {
+.my_button:hover span:after {
     opacity: 1;
     right: 0;
 }

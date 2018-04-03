@@ -20,7 +20,7 @@
             <p class="price"><b>Quantity</b></p>
         </div>
     </div>
-    <hr class="product_header">
+    <hr class="hr">
     @if($cart_state === "with products")
         @foreach($cart_products as $product)
             <div class="product">
@@ -44,21 +44,28 @@
                     @foreach($cart_products_quantities as $cart_product_quantity)
                         @if($cart_product_quantity->product_id == $product->id)
                             <p class="quantity"><b>{{$cart_product_quantity->quantity}}</b></p>
+                            @php ($quantity = $cart_product_quantity->quantity)
                         @endif
                     @endforeach
                 </div>
-                <div class="product_button">
+                <div class="product_form_div">
                     <form  class="product_form">
                         <input class="amount" type="hidden" name="amount" value="{{$product->price}}">
+                        <input class="product_id" type="hidden" name="product_id" value="{{$product->id}}">
+                        <input class="quantity" type="hidden" name="quantity" value={{$quantity}}>
                         <input class="description" type="hidden" name="description" value="{{$product->name}}">
                         <input class="currency" type="hidden" name="currency" value="{{$product->currency}}">
-                        <div class="buttuns">
+                        <div class="buy_now">
                         </div>
                     </form>
                 </div>
             </div>
             <hr style="height: 10px; background-color: #0c5460; opacity: 0">
         @endforeach
+        <hr class="hr">
+        <div class = "buy_all">
+            <p class="footer_header"><b>Subtotal:<span id = "total_value"></span></b></p>
+        </div>
         @include('login_modal')
     @endif
 

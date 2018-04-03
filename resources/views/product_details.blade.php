@@ -34,13 +34,17 @@
         <form  class="product_form">
             <input class="product_id" type="hidden" name="product_id" value="{{$product->id}}">
             <input class="amount" type="hidden" name="amount" value="{{$product->price}}">
+            <input class="quantity" type="hidden" name="quantity" value=1>
             <input class="description" type="hidden" name="description" value="{{$product->name}}">
             <input class="currency" type="hidden" name="currency" value="{{$product->currency}}">
-            <div class="buttuns">
+            <div class="buttons">
                 <a href="#"  class="btn btn-lg add_cart">
                     <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
                 </a>
                 <br>
+                <div class = "buy_now">
+
+                </div>
             </div>
         </form>
     </div>

@@ -29,7 +29,7 @@
     float: left;
 }
 
-.buttuns{
+.buttons{
     float: left;
 }
 
@@ -49,11 +49,11 @@ a{
     color: #8a6d3b;
 }
 
-.buttuns{
+.buttons{
     float: left;
     padding: 5% 5% 5% 2%;
 }
 
-.buttuns button{
-    margin-top: 10%;
+.buttons button{
+    margin-top: 7%;
 }
