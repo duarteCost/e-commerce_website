@@ -73,7 +73,6 @@ function account_amount_verification(accounts, bank_id_default , account_id_defa
     var result = false;
     $.each(accounts, function (key, account) {
         if (bank_id_default === account.bank_id && account_id_default === account.account_id) {
-            console.log("entrou");
             result = true;
             return false;
         }
@@ -82,18 +81,27 @@ function account_amount_verification(accounts, bank_id_default , account_id_defa
 }
 
 function purchase_products(token, products_array, index) {
-    if(index<products_array.length){
-        var amount = products_array[index]['amount'];
-        var currency = products_array[index]['currency'];
-        index++;
-        purchase(token, amount, currency ).done(function () {
-            console.log("Purchase done!");
-            purchase_products(token, products_array, index);
-        });
-    }
+    //products_array is the products to purchase
+        if (index < products_array.length) {
+            var amount = products_array[index]['amount'];
+            var currency = products_array[index]['currency'];
+            purchase(token, amount, currency, products_array[index]).done(function () {
+                console.log("End of purchase!");
+                index++;
+                purchase_products(token, products_array, index);
+            });
+
+        }
+        else
+        {
+            window.location = "/cart?cart_products="+getCookie('cart_products');
+        }
 }
 
-function purchase(token, amount, currency) {
+
+
+
+function purchase(token, amount, currency, product) {
     var deferred = new $.Deferred(function () {
         get_default_payment_account(token).done(function (data) { //get default payment account
             console.log(data);
@@ -132,6 +140,7 @@ function purchase(token, amount, currency) {
                                             console.log(data);
                                             if(data.response.status === "COMPLETED"){
                                                 alert("Purchase made successfully!");
+                                                cart_remove(product);
                                                 deferred.resolve();
                                             }
                                             else
@@ -153,6 +162,7 @@ function purchase(token, amount, currency) {
                                 //if the transaction status is completed the its done
                                 else if(data.response.status === "COMPLETED") {
                                     alert("Purchase made successfully!");
+                                    cart_remove(product);
                                     deferred.resolve();
                                 }
                             }).fail(function (data) {
@@ -195,7 +205,6 @@ function purchase(token, amount, currency) {
 }
 
 
-//end of methods called form popup
 
 $( document ).ready(function() {
 
