@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('header')
     <title>Umazon - Products</title>
-    <link rel="stylesheet" href="../css/login_modal.css">
     <link rel="stylesheet" href="../css/cart.css">
-    <script src="../js/buy_button.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/buy_buttons.js"></script>
+    <script src="../js/common.js"></script>
 @endsection
 @section('content')
     <div class="product">
@@ -50,13 +51,11 @@
                 </div>
                 <div class="product_form_div">
                     <form  class="product_form">
+                        <input class="product_name" type="hidden" name="product_name" value="{{$product->name}}">
                         <input class="amount" type="hidden" name="amount" value="{{$product->price}}">
                         <input class="product_id" type="hidden" name="product_id" value="{{$product->id}}">
                         <input class="quantity" type="hidden" name="quantity" value={{$quantity}}>
-                        <input class="description" type="hidden" name="description" value="{{$product->name}}">
                         <input class="currency" type="hidden" name="currency" value="{{$product->currency}}">
-                        <div class="buy_now">
-                        </div>
                     </form>
                 </div>
             </div>

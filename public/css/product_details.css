@@ -49,11 +49,15 @@ a{
     color: #8a6d3b;
 }
 
-.buttons{
-    float: left;
-    padding: 5% 5% 5% 2%;
-}
+/*.buttons{*/
+    /*float: left;*/
+    /*padding: 5% 5% 5% 2%;*/
+/*}*/
 
-.buttons button{
-    margin-top: 7%;
+/*.buttons button{*/
+    /*margin-top: 7%;*/
+/*}*/
+
+.add_cart{
+    margin-bottom: 5%;
 }
