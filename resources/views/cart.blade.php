@@ -65,7 +65,7 @@
         <div class = "buy_all">
             <p class="footer_header"><b>Subtotal:<span id = "total_value"></span></b></p>
         </div>
-        @include('login_modal')
+        {{--@include('login_modal')--}}
     @endif
 
 

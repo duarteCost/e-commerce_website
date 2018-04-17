@@ -44,6 +44,5 @@
             <br>
         </form>
     </div>
-
-    @include('login_modal')
+    {{--@include('login_modal')--}}
 @endsection

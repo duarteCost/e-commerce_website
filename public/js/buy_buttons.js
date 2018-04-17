@@ -31,7 +31,56 @@ function return_from_purchase() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function login_modal() { /*change*/
+    //var deferred = new $.Deferred(function () {
+        var $content =
+            '<div class="modal">'+
+            '<span class="close" title="Close Modal">&times;</span>'+
+            '<div class="modal-content form-content">'+
+            '<div class="form-header login-form-header">'+
+            '<div class="form-header-right">'+
+            '<img style="width: 50%"  src="../images/logo.png">'+
+            '</div>'+
+            '<div  class="form-header-left">'+
+            '<h4>Enjoy the Nearsoft payment services</h4>'+
+            '<h3>Login</h3>'+
+            '</div>'+
+            '<br style="clear:both"/>'+
+            '</div>'+
+            '<div class="form-body">'+
+            '<form id="login-form" method="POST">'+
+            '<div class="form-group email">'+
+            '<label><span class="glyphicon glyphicon-user span-customized"></span> Email</label>'+
+            '<input type="textbox" class="form-control form-element" name="email" placeholder="Email" required>'+
+            '</div>'+
+            '<div class="form-group password">'+
+            '<label><span class="glyphicon glyphicon-eye-open span-customized"></span> Password</label>'+
+            '<input type="password" class="form-control form-element" name="password" placeholder="Password" required>'+
+            '</div>'+
+            '<p class="submit-error" id="error-message"></p>'+
+            '<br>'+
+            '<button type="submit" class="btn btn-block submit-btn"><span class="glyphicon glyphicon-lock"></span>&nbsp; Login</button>'+
+            '</form>'+
+            '</div>'+
+            '<div class="modal-footer">'+
+            '<div class="pull-left"><button type="button" class="cancelbtn">Cancel</button></div>'+
+            '<p>Dont have an account?<a id = "sing_up"> Sign up here</a></p><br>'+
+            '</div>'+
+            '</div>'+
+            '</div>';
+        $('body').prepend($content);
+        $('.cancelbtn, .close').click(function () {
+            $(this).parents('.modal').fadeOut(500, function () {
+                $(this).remove();
+            });
+            //deferred.resolve();
+        });
 
+
+    // });
+    // return deferred.promise();
+
+}
 
 
 function Confirm(title, msg, $true, $false) { /*change*/
@@ -95,13 +144,12 @@ function Alert(title, msg) { /*change*/
         //     });
         //     deferred.resolve();
         // });
-        stop_loader();
         setTimeout(function(){
             $('.alert-modal-overlay').fadeOut(500, function () {
                 $(this).remove();
                 deferred.resolve();
             });
-        }, 4000);
+        }, 2000);
 
     });
     return deferred.promise();
@@ -162,8 +210,8 @@ function get_charge(token, bank_id, account_id) {
 }
 
 //The transaction is initiated and the result can be the concluded status or initiated all depends the transaction amount
-function initiate_transaction(token, bank_id, account_id, amount, currency) {
-    var data_serialized = {"amount": amount, "currency": currency};
+function initiate_transaction(token, bank_id, account_id, amount, currency, description) {
+    var data_serialized = {"amount": amount, "currency": currency, "description":description};
     console.log(data_serialized);
     return $.ajax({
         type:"POST",
@@ -214,6 +262,7 @@ function purchase_products(token, products_array, index) {
         }
         else
         {
+            stop_loader();
             return_from_purchase();
         }
 }
@@ -236,10 +285,10 @@ function purchase(token, amount, currency, product) {
                         bank_id = accounts[0].bank_id;
                         account_id = accounts[0].account_id;
                         console.log("não tem dinheiro");
-                        Confirm("Nearsoft Payment Provider", "You do not have enough money in this account to complete the purchase of"+product['product_name']+"!\n" +
-                            "Do you want to pay with the account <b>"+account_id+"</b> of bank <b>"+bank_id+"</b>?",'Yes', 'Cancel').fail(function (data)
+                        Confirm("Nearsoft Payment Provider", "You do not have enough money in this account to complete the purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b> \" " +
+                            "Do you want to pay with the account \"<b>"+account_id+"</b>\" of bank \"<b>"+bank_id+"</b>\"?",'Yes', 'Cancel').fail(function (data)
                         {
-                            Alert("Nearsoft Payment Provider","The purchase of <b>"+product['product_name']+"</b> was canceled...").done(
+                            Alert("Nearsoft Payment Provider","The purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" was canceled...").done(
                                 function () {
                                     deferred.resolve();
                                 }
@@ -248,22 +297,22 @@ function purchase(token, amount, currency, product) {
                     }
                     get_charge(token, bank_id, account_id).done(function (data) {
                         console.log(data);
-                        Confirm("Nearsoft Payment Provider","The purchase of <b>"+product['product_name']+"</b> is" +
+                        Confirm("Nearsoft Payment Provider","The purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" is" +
                             " subject to a charge of "+data.response.charge+". Do you want to proceed with payment?", 'Yes', 'Cancel').done(function (data) {
-                            initiate_transaction(token, bank_id, account_id, amount, currency).done(function (data)      //initialize the transaction and wait for result
+                            initiate_transaction(token, bank_id, account_id, amount, currency, product['product_name']).done(function (data)      //initialize the transaction and wait for result
                             {
                                 console.log(data);
                                 if(data.response.status === "INITIATED")  //If status is initiated is necessary answer the challenge
                                 {
                                     var data_serialized = {"challenge_query": data.response.challenge.id, "transaction_req_id": data.response.id.value};
-                                    Confirm("Nearsoft Payment Provider", "The price of <b>"+product['product_name']+"</b> is over 100 €.  Do you want to proceed with payment?",
+                                    Confirm("Nearsoft Payment Provider", "The price of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" is over 100 €.  Do you want to proceed with payment?",
                                         'Yes', 'Cancel').done(function (data)   //Wait for challenge confirmation by customer
                                     {
                                         answer_challenge(token, data_serialized, bank_id, account_id).done(function (data)   //ajax request to answer challenge
                                         {
                                             console.log(data);
                                             if(data.response.status === "COMPLETED"){
-                                                Alert("Nearsoft Payment Provider", "The purchase of <b>"+product['product_name']+"</b> was made successfully!").done(function () {
+                                                Alert("Nearsoft Payment Provider", "The purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" was made successfully!").done(function () {
                                                     cart_remove(product);
                                                     deferred.resolve();
                                                 });
@@ -280,14 +329,14 @@ function purchase(token, amount, currency, product) {
                                             });
                                         });
                                     }).fail(function (data) {             //fail confirmation of challenge
-                                        Alert("Nearsoft Payment Provider", "The purchase of <b>"+product['product_name']+"</b> was canceled...").done(function () {
+                                        Alert("Nearsoft Payment Provider", "The purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" was canceled...").done(function () {
                                             deferred.resolve();
                                         });
                                     });
                                 }
                                 //if the transaction status is completed the its done
                                 else if(data.response.status === "COMPLETED") {
-                                    Alert("Nearsoft Payment Provider","The purchase of <b>"+product['product_name']+"</b> was made successfully!").done(function () {
+                                    Alert("Nearsoft Payment Provider","The purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" was made successfully!").done(function () {
                                         cart_remove(product);
                                         deferred.resolve();
                                     });
@@ -299,7 +348,7 @@ function purchase(token, amount, currency, product) {
                                 });
                             });
                         }).fail(function (data) {
-                            Alert("Nearsoft Payment Provider","The purchase of <b>"+product['product_name']+"</b> was canceled...").done(function () {
+                            Alert("Nearsoft Payment Provider","The purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" was canceled...").done(function () {
                                 deferred.resolve();
                             });
                         });
@@ -313,7 +362,7 @@ function purchase(token, amount, currency, product) {
                 }
                 else
                 {
-                    Alert("Nearsoft Payment Provider", "No account has enough money to purchase in any account for "+product['product_name']+".").done(function () {
+                    Alert("Nearsoft Payment Provider", "No account has enough money to purchase in any account for \"<b>"+product['product_name'].substring(0, 30)+"...</b>\".").done(function () {
                         deferred.resolve();
                     });
                 }
@@ -340,13 +389,13 @@ function purchase(token, amount, currency, product) {
 $( document ).ready(function() {
 
     //add button and button css
-    $(button_config.product_form).append('<button onclick="document.getElementById(\'id01\').style.display=\'block\'" type="submit" class = "my_button buyNow" style="vertical-align:middle"><span>Buy Now</span></button>');
-    $(button_config.buy_all).append('<button onclick="document.getElementById(\'id01\').style.display=\'block\'" type="button" class = "my_button buyAll" style="vertical-align:middle"><span>Buy All</span></button>');
-    $("head").append($("<link rel='stylesheet' href='../css/button_style.css' type='text/css' media='screen' />"));
-    $("head").append('<link rel="stylesheet" href="../css/login_modal.css">');
-    $("head").append('<link rel="stylesheet" href="../css/confirm_box.css">');
-    $("head").append('<link rel="stylesheet" href="../css/alert_box.css">');
-    $("head").append('<link rel="stylesheet" href="../css/loader.css">');
+    $(button_config.product_form).append('<button type="submit" class = "my_button buyNow" style="vertical-align:middle"><span>Buy Now</span></button>');
+    $(button_config.buy_all).append('<button type="button" class = "my_button buyAll" style="vertical-align:middle"><span>Buy All</span></button>');
+    $("head").append($("<link rel='stylesheet' href='"+button_config.css_path+"button_style.css' type='text/css' media='screen' />"));
+    $("head").append('<link rel="stylesheet" href="'+button_config.css_path+'login_modal.css">');
+    $("head").append('<link rel="stylesheet" href="'+button_config.css_path+'confirm_box.css">');
+    $("head").append('<link rel="stylesheet" href="'+button_config.css_path+'alert_box.css">');
+    $("head").append('<link rel="stylesheet" href="'+button_config.css_path+'loader.css">');
     $("body").append('<div class="loader_container" style="display: none">')
     $('.loader_container').append('<div class="loader"></div>')
 
@@ -366,9 +415,10 @@ $( document ).ready(function() {
         });
         var products_string = JSON.stringify(products_array);
         setCookie('buy_products', products_string, 0.01);
-        console.log(getCookie('buy_products'))
-        console.log('Buy all products')
-    })
+        console.log(getCookie('buy_products'));
+        console.log('Buy all products');
+        login_modal();
+    });
 
     $('.buyNow').click(function (e) {
         e.preventDefault();
@@ -385,20 +435,22 @@ $( document ).ready(function() {
         }
         var products_string = JSON.stringify(products_array);
         setCookie('buy_products', products_string, 0.01);
-        console.log(getCookie('buy_products'))
-        console.log('Buy now products')
+        console.log(getCookie('buy_products'));
+        console.log('Buy now products');
+        login_modal();
     })
 
 
 
     //When the user login
-    $('#login-form').submit(function signup(e){
+    $('body').on('submit', '#login-form', function(e) {
+    //$('#login-form').submit(function signup(e){
         e.preventDefault();
         login_nearsoft_payment_provider($(this)).done(function(data){  //Login in user microservice
             console.log('Submission was successful.');
             console.log(data);
             var token = data.token;
-            $('#id01').css({"display":"none"})
+            $('.modal').css({"display":"none"})
             //var continue_operation = confirm("Login successfully. Do you want to proceed with payment?");
             Confirm('Nearasoft Payment Provider', 'Login successfully. Do you want to proceed with payment?',
                 'Yes', 'Cancel').done(function (data)  //Verify the confirmation of purchase
