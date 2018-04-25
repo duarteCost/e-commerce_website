@@ -2,7 +2,7 @@
 //                                       please implement these methods                                            //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function cart_remove(product_purchased){
-
+    console.log(product_purchased);
     var cart_products = getCookie('cart_products')
     var cart_products = JSON.parse(cart_products);
     for (var z = 0; z<cart_products.length; z++){
@@ -292,7 +292,7 @@ function purchase(token, amount, currency, product) {
                                 function () {
                                     deferred.resolve();
                                 }
-                            )
+                            );
                         });
                     }
                     get_charge(token, bank_id, account_id).done(function (data) {
