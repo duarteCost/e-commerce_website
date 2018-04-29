@@ -4,16 +4,17 @@
 function cart_remove(product_purchased){
     console.log(product_purchased);
     var cart_products = getCookie('cart_products')
-    var cart_products = JSON.parse(cart_products);
-    for (var z = 0; z<cart_products.length; z++){
-        if(product_purchased['product_id'] === cart_products[z]['product_id'])
-        {
-            cart_products.splice(z,1);
+    if(cart_products!=="") {
+        var cart_products = JSON.parse(cart_products);
+        for (var z = 0; z < cart_products.length; z++) {
+            if (product_purchased['product_id'] === cart_products[z]['product_id']) {
+                cart_products.splice(z, 1);
+            }
         }
+        console.log('Cart remove!')
+        var cart_products_str = JSON.stringify(cart_products);
+        setCookie('cart_products', cart_products_str, 0.1);
     }
-    console.log('Cart remove!')
-    var cart_products_str = JSON.stringify(cart_products);
-    setCookie('cart_products', cart_products_str , 0.1);
 
 }
 
