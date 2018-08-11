@@ -216,7 +216,7 @@ function initiate_transaction(token, bank_id, account_id, amount, currency, desc
     console.log(data_serialized);
     return $.ajax({
         type:"POST",
-        url: "https://127.0.0.1:5002/pisp/bank/"+bank_id+"/account/"+account_id+"/initiate-transaction-request",
+        url: "https://127.0.0.1:5002/pisp/bank/"+bank_id+"/account/"+account_id+"/initiate-transaction-request?merchantKey="+merchantData.merchantKey,
         data:data_serialized,
         beforeSend: function (xhr) {
             /* Authorization header */
@@ -229,7 +229,7 @@ function initiate_transaction(token, bank_id, account_id, amount, currency, desc
 function answer_challenge(token, data_serialized, bank_id, account_id) {
     return $.ajax({
         type: "POST",
-        url: "https://127.0.0.1:5002/pisp/bank/"+bank_id+"/account/"+account_id+"/answer-challenge",
+        url: "https://127.0.0.1:5002/pisp/bank/"+bank_id+"/account/"+account_id+"/answer-challenge?merchantKey="+merchantData.merchantKey,
         data: data_serialized,
         beforeSend: function (xhr) {
             /* Authorization header */
@@ -299,7 +299,7 @@ function purchase(token, amount, currency, product) {
                     get_charge(token, bank_id, account_id).done(function (data) {
                         console.log(data);
                         Confirm("Nearsoft Payment Provider","The purchase of \"<b>"+product['product_name'].substring(0, 30)+"...</b>\" is" +
-                            " subject to a charge of "+data.response.charge+". Do you want to proceed with payment?", 'Yes', 'Cancel').done(function (data) {
+                            " subject to a charge of "+data.response.charge+"€. Do you want to proceed with payment?", 'Yes', 'Cancel').done(function (data) {
                             initiate_transaction(token, bank_id, account_id, amount, currency, product['product_name']).done(function (data)      //initialize the transaction and wait for result
                             {
                                 console.log(data);
